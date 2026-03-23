@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Helper Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <h1>Welcome to Student Helper 👋</h1>
+            <p>Let's map out your learning journey!</p>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" id="user-name" placeholder="E.g. Alex">
+                </div>
+                <div class="input-group">
+                    <label>Standard / Class</label>
+                    <input type="text" id="user-standard" placeholder="E.g. 10th">
+                </div>
+                <div class="input-group">
+                    <label>Purpose / Target Exam</label>
+                    <select id="user-purpose">
+                        <option value="Study">Study / Learn</option>
+                        <option value="Target">Target Prep</option>
+                        <option value="Practice">Practice</option>
+                        <option value="JEE/NEET">Tough (JEE / NEET Level)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Training Days</label>
+                    <input type="number" id="user-days" placeholder="E.g. 7" min="1" max="30" value="7">
+                </div>
+                
+                <button class="primary-btn" onclick="saveUserDetails()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen">
+            <h1 id="greeting-text">Hi there!</h1>
+            <p>What topic are we mastering today?</p>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>Enter Topic</label>
+                    <input type="text" id="learning-topic" placeholder="E.g. Photosynthesis">
+                </div>
+                
+                <button class="primary-btn" onclick="generateQuestions()" id="start-btn">
+                    <span>Start Training</span>
+                    <div class="loader" id="loader" style="display:none;"></div>
+                </button>
+                <p id="error-msg" class="error-text"></p>
+            </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="top-bar">
+                <span id="question-progress">Question 1/20</span>
+                <span class="badge" id="difficulty-badge">Level 1</span>
+            </div>
+            
+            <div class="card question-card">
+                <h2 id="question-text">Loading question...</h2>
+                <div id="options-container" class="options-grid">
+                    <!-- Options injected here -->
+                </div>
+                <div id="answer-reveal" style="display:none;" class="answer-box">
+                    <p><strong>Correct Answer:</strong> <span id="correct-answer-text"></span></p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="secondary-btn" id="show-answer-btn" onclick="showAnswer()">Submit Answer</button>
+                    <button class="primary-btn" id="next-q-btn" onclick="nextQuestion()" style="display:none;">Next Question</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Screen -->
+        <div id="progress-screen" class="screen">
+            <h1>Training Complete! 🎉</h1>
+            <p>Great job finishing your questions for today.</p>
+            
+            <div class="card stats-card">
+                <div class="stat-box">
+                    <h3>Score</h3>
+                    <p id="final-score">0 / 20</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Accuracy</h3>
+                    <p id="accuracy-percent">0%</p>
+                </div>
+            </div>
+            
+            <button class="primary-btn mt-20" onclick="goToCertificate()">Get Certificate</button>
+            <button class="secondary-btn mt-10" onclick="goHome()">Start Over</button>
+        </div>
+
+        <!-- Certificate Screen -->
+        <div id="certificate-screen" class="screen">
+            <div class="certificate-wrapper" id="certificate-content">
+                <div class="certificate-inner">
+                    <div class="cert-header">
+                        <div class="cert-seal">🏆</div>
+                        <h2>Certificate of Achievement</h2>
+                    </div>
+                    <p class="cert-subtitle">This is proudly presented to</p>
+                    <h1 class="cert-name" id="cert-name-label">Name</h1>
+                    <div class="cert-divider"></div>
+                    <p class="cert-desc">For outstanding performance and successfully completing the training module on:</p>
+                    <h3 class="cert-topic" id="cert-topic-label">Topic</h3>
+                    
+                    <div class="cert-footer">
+                        <div class="cert-stat">
+                            <span class="stat-label">Score</span>
+                            <span class="stat-value" id="cert-score-label"></span>
+                        </div>
+                        <div class="cert-stat">
+                            <span class="stat-label">Class</span>
+                            <span class="stat-value" id="cert-class-label"></span>
+                        </div>
+                        <div class="cert-signature-area">
+                            <img src="signature.png" class="signature-img" alt="Signature">
+                            <div class="signature-line"></div>
+                            <span class="signature-text">AI Instructor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="primary-btn mt-20" onclick="downloadCertificate()">Download PDF</button>
+            <button class="secondary-btn mt-10" onclick="goHome()">Start Over</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
